@@ -37,12 +37,14 @@ As each language is completed, this repository will be expanded to cover the nex
 ```
 python/
 ├── basics/
+├── intermediate/
 ├── oop/
 ├── design-patterns/
+├── pyside6/
 ├── databases/
-├── web-scraping/
 ├── django/
-└── projects/
+├── projects/
+└── extras/
 ```
 
 ---
@@ -70,6 +72,7 @@ python/
 ```
 java/
 ├── fundamentals/
+├── challenge/
 ├── oop/
 ├── collections/
 ├── exceptions/
@@ -95,8 +98,8 @@ java/
 ## 📂 Repository Structure
 ```
 /
-├── python/
 ├── java/
+├── python/
 ├── resources/     
 └── README.md
 ```
