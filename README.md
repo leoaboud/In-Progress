@@ -88,16 +88,16 @@ As each language is completed, this repository will be expanded to cover the nex
 
 ### Topics Covered
 
-- Conceitos teóricos e fundamentos de Banco de Dados
-- Data Types — Tipos de dados
-- Linguagem SQL — Aulas Práticas (DDL, DML, DCL, TCL)
-- Union e Subqueries
-- Joins — Junções
-- Funções Padrões
-- Functions, Procedures e Triggers
-- Backup, Restore e Administração MySQL
-- Projeto DB Mini E-commerce
-- Instalação do Banco de Dados MySQL ST CE
+- Theoretical Concepts and Database Fundamentals
+- Data Types
+- SQL Language — Practical Lessons (DDL, DML, DCL, TCL)
+- Union and Subqueries
+- Joins
+- Standard Functions
+- Functions, Procedures, and Triggers
+- Backup, Restore, and MySQL Administration
+- Mini E-commerce Database Project
+- MySQL Server and Workbench Installation (Community Edition)
 
 ### Structure
 
