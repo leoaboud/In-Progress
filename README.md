@@ -1,7 +1,7 @@
-# 📚 Learning Journey — Python & Java
-
+```markdown
+# 📚 Learning Journey
 > A personal repository dedicated to documenting my progress as a developer.  
-> Every commit is a step forward. Every branch is a new concept mastered.  
+> Every commit is a step forward. Every branch is a new concept mastered.
 
 ---
 
@@ -13,14 +13,14 @@ As each language is completed, this repository will be expanded to cover the nex
 
 ---
 
-## 🐍 Python 3 — Básico ao Avançado
+## 🐍 Python 3
 
 **Platform:** Udemy  
-**Course:** Python 3  
 **Instructor:** *Luiz Otávio Miranda*  
 **Status:** 🟡 In Progress
 
 ### Topics Covered
+
 - Core syntax, data types, and control flow
 - Functions, modules, and standard library
 - Object-Oriented Programming (OOP) — Pythonic style
@@ -34,6 +34,7 @@ As each language is completed, this repository will be expanded to cover the nex
 - Deploy on Linux/GCP with SSH
 
 ### Structure
+
 ```
 python/
 ├── basics/
@@ -49,14 +50,14 @@ python/
 
 ---
 
-## ☕ Java — Básico ao Avançado
+## ☕ Java
 
 **Platform:** Udemy  
-**Course:** Curso  
-**Instructor:** *Cleison Santos* 
+**Instructor:** *Cleison Santos*  
 **Status:** 🟡 In Progress
 
 ### Topics Covered
+
 - Java environment setup and JVM fundamentals
 - Variables, operators, and control structures
 - Arrays, collections, and data structures
@@ -69,6 +70,7 @@ python/
 - Real-world project development
 
 ### Structure
+
 ```
 java/
 ├── fundamentals/
@@ -83,25 +85,61 @@ java/
 
 ---
 
+## 🗄️ MySQL
+
+**Platform:** Udemy  
+ **Instructor:** *André Rosa*
+**Status:** 🟡 In Progress
+
+### Topics Covered
+
+- Conceitos teóricos e fundamentos de Banco de Dados
+- Data Types — Tipos de dados
+- Linguagem SQL — Aulas Práticas (DDL, DML, DCL, TCL)
+- Union e Subqueries
+- Joins — Junções
+- Funções Padrões
+- Functions, Procedures e Triggers
+- Backup, Restore e Administração MySQL
+- Projeto DB Mini E-commerce
+- Instalação do Banco de Dados MySQL ST CE
+
+### Structure
+
+```
+mysql/
+├── sql-language/
+├── union-subqueries/
+├── joins/
+├── functions/
+├── procedures-triggers/
+├── administration/
+├── projects/
+└── extras/
+```
+
+---
+
 ## 🗺️ Roadmap
 
-| Language / Technology | Status |
+| Language / Technology | Status         |
 |---|---|
-| 🐍 Python 3      | 🟡 In Progress |
-| ☕ Java          | 🟡 In Progress |
-| 🔜 Next Language | ⬜ Planned |
+| 🐍 Python 3       | 🟡 In Progress |
+| ☕ Java            | 🟡 In Progress |
+| 🗄️ MySQL           | 🟡 In Progress |
+| 🔜 Next Language   | ⬜ Planned     |
 
 > This section will be updated as each language is completed and a new study cycle begins.
 
 ---
 
 ## 📂 Repository Structure
+
 ```
 /
 ├── java/
 ├── python/
-├── resources/     
+├── mysql/
+├── resources/
 └── README.md
 ```
-
----
