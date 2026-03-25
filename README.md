@@ -1,4 +1,3 @@
-```markdown
 # 📚 Learning Journey
 > A personal repository dedicated to documenting my progress as a developer.  
 > Every commit is a step forward. Every branch is a new concept mastered.
@@ -35,18 +34,16 @@ As each language is completed, this repository will be expanded to cover the nex
 
 ### Structure
 
-```
-python/
-├── basics/
-├── intermediate/
-├── oop/
-├── design-patterns/
-├── pyside6/
-├── databases/
-├── django/
-├── projects/
-└── extras/
-```
+    python/
+    ├── basics/
+    ├── intermediate/
+    ├── oop/
+    ├── design-patterns/
+    ├── pyside6/
+    ├── databases/
+    ├── django/
+    ├── projects/
+    └── extras/
 
 ---
 
@@ -71,24 +68,22 @@ python/
 
 ### Structure
 
-```
-java/
-├── fundamentals/
-├── challenge/
-├── oop/
-├── collections/
-├── exceptions/
-├── multithreading/
-├── database/
-└── projects/
-```
+    java/
+    ├── fundamentals/
+    ├── challenge/
+    ├── oop/
+    ├── collections/
+    ├── exceptions/
+    ├── multithreading/
+    ├── database/
+    └── projects/
 
 ---
 
 ## 🗄️ MySQL
 
 **Platform:** Udemy  
- **Instructor:** *André Rosa*
+**Instructor:** *André Rosa*  
 **Status:** 🟡 In Progress
 
 ### Topics Covered
@@ -106,17 +101,15 @@ java/
 
 ### Structure
 
-```
-mysql/
-├── sql-language/
-├── union-subqueries/
-├── joins/
-├── functions/
-├── procedures-triggers/
-├── administration/
-├── projects/
-└── extras/
-```
+    mysql/
+    ├── sql-language/
+    ├── union-subqueries/
+    ├── joins/
+    ├── functions/
+    ├── procedures-triggers/
+    ├── administration/
+    ├── projects/
+    └── extras/
 
 ---
 
@@ -135,11 +128,9 @@ mysql/
 
 ## 📂 Repository Structure
 
-```
-/
-├── java/
-├── python/
-├── mysql/
-├── resources/
-└── README.md
-```
+    /
+    ├── java/
+    ├── python/
+    ├── mysql/
+    ├── resources/
+    └── README.md
