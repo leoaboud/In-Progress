@@ -1,34 +1,48 @@
+-- Define o banco de dados de trabalho
 USE curso;
 
-CREATE TABLE funcionarios (
-    id INT NOT NULL AUTO_INCREMENT,
-    nome VARCHAR(50) NOT NULL,
+-- Criação da estrutura básica com chave primária auto-incremental
+CREATE TABLE IF NOT EXISTS funcionarios (
+    id      INT NOT NULL AUTO_INCREMENT,
+    nome    VARCHAR(50) NOT NULL,
     salario DECIMAL(10,2),
-    setor VARCHAR(30),
+    setor   VARCHAR(30),
     PRIMARY KEY (id)
 );
 
-select * from funcionarios;
+-- Retorna todos os registros da tabela
+SELECT * FROM funcionarios;
 
-select id, nome, salario, setor as depto
-from funcionarios;
+-- Retorna colunas específicas utilizando apelido (alias) para o setor
+SELECT 
+    id, 
+    nome, 
+    salario, 
+    setor AS depto
+FROM funcionarios;
 
--- update
-/*
-insert into funcionarios (nome, salario, setor) values
-('Joao', 1000, ''), ('Jose', 2000, ''), ('Alexandre', 3000, '');
+-- Inserção de registros completos (nome, salário e setor)
+INSERT INTO funcionarios (nome, salario, setor) VALUES
+('Joao',      1000.00, 'RH'), 
+('Jose',      2000.00, 'Financeiro'), 
+('Alexandre', 3000.00, 'TI');
 
-insert into funcionarios (nome, salario) values ('Pedro', 1000);
-insert into funcionarios (nome, salario) values ('Cleiton', 5000);
+-- Inserção de registros parciais (setor ficará como NULL)
+INSERT INTO funcionarios (nome, salario) VALUES 
+('Pedro',   1000.00), 
+('Cleiton', 5000.00);
 
-update funcionarios set salario = salario * 1.5
-where id = 2;
+-- Modificação de um valor específico baseado no ID
+UPDATE funcionarios 
+SET    salario = salario * 1.5
+WHERE  id = 2;
 
-update funcionarios set salario = salario * 1.5, setor = 'TI'
-where id <> '1';
-*/
+-- Atualização em massa para registros que não possuem ID igual a 1
+UPDATE funcionarios 
+SET    salario = salario * 1.5, 
+       setor   = 'TI'
+WHERE  id <> 1;
 
--- delete
-delete
-from funcionarios
-where id = '1';
+-- Exclusão física de um registro específico
+DELETE FROM funcionarios
+WHERE  id = 1;
