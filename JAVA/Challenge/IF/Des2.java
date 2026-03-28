@@ -6,7 +6,7 @@ public class Des2 {
         System.out.print("Digite um número: ");
         int numero =  entrada.nextInt();
 
-        if(numero / 2 != 0){
+        if(numero % 2 != 0){
             System.out.print("Número impar!");
         }
         else{

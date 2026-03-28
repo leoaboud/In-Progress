@@ -1,4 +1,4 @@
-package Desafios.Switch;
+package Challenge.switch;
 
 import java.util.Scanner;
 
@@ -6,7 +6,7 @@ public class Des2 {
     public static void main(String[] args) {
         Scanner entrada = new Scanner(System.in);
 
-        System.out.print("Digite o primeiro número: ");
+        System.out.print("Digite o primeiro número: "); 
         double num_1 = entrada.nextDouble();
 
         System.out.print("Digite o segundo número: ");

@@ -1,4 +1,4 @@
-package Desafios.While;
+package Challenge.while;
 
 public class Des1 {
     public static void main(String[] args) {

@@ -1,0 +1,65 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Des7",
+            "request": "launch",
+            "mainClass": "Des7",
+            "projectName": "In-Progress_ce977031"
+        },
+        {
+            "type": "java",
+            "name": "Des6",
+            "request": "launch",
+            "mainClass": "Des6",
+            "projectName": "In-Progress_ce977031"
+        },
+        {
+            "type": "java",
+            "name": "Des5",
+            "request": "launch",
+            "mainClass": "Challenge.While.Des5",
+            "projectName": "In-Progress_ce977031"
+        },
+        {
+            "type": "java",
+            "name": "Desafio04",
+            "request": "launch",
+            "mainClass": "Challenge.While.Desafio04",
+            "projectName": "In-Progress_ce977031"
+        },
+        {
+            "type": "java",
+            "name": "Des2",
+            "request": "launch",
+            "mainClass": "Challenge.While.Des2",
+            "projectName": "In-Progress_ce977031"
+        },
+        {
+            "type": "java",
+            "name": "Des1",
+            "request": "launch",
+            "mainClass": "Challenge.While.Des1",
+            "projectName": "In-Progress_ce977031"
+        },
+        {
+            "type": "java",
+            "name": "Des4",
+            "request": "launch",
+            "mainClass": "Challenge.While.Des4",
+            "projectName": "In-Progress_ce977031"
+        },
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        }
+    ]
+}

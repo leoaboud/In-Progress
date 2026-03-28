@@ -1,4 +1,4 @@
-package Desafios.Switch;
+package Challenge.switch;
 
 import java.util.Scanner;
 
