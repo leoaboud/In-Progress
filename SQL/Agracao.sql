@@ -1,167 +1,222 @@
+/*******************************************************************************
+  SCRIPT DE ESTUDO: FUNÇÕES DE AGREGAÇÃO, ESTATÍSTICA E AGRUPAMENTOS
+  PADRONIZAÇÃO: MÉTRICAS, SUBQUERIES E ANÁLISE DE DISPERSÃO.
+*******************************************************************************/
 
-USE curso;
+USE CURSO;
 
--- 1. Exploração inicial
-SELECT * FROM senso;
+-- 1. EXPLORAÇÃO INICIAL PARA VERIFICAÇÃO DO RESULTADO DOS DADOS
+SELECT * FROM SENSO;
 
--- 2. Médias de população
-SELECT AVG(populacao) AS media 
-FROM senso
-WHERE ano = '2014';
+-- =============================================================================
+-- 2. MÉDIAS DE POPULAÇÃO (AVG)
+-- =============================================================================
 
-SELECT estado, AVG(populacao) 
-FROM senso
-WHERE ano = '2014'
-GROUP BY estado
-ORDER BY 2 DESC;
+-- GERA O RETORNO DA MÉDIA POPULACIONAL GLOBAL DE 2014
+SELECT AVG(POPULACAO) AS MEDIA 
+FROM SENSO
+WHERE ANO = '2014';
 
-SELECT a.cod_UF, b.sigla_uf, AVG(a.POPULACAO) AS media
-FROM senso a 
-INNER JOIN uf b ON a.cod_uf = b.cod_uf
-WHERE a.ano = '2014'
-GROUP BY a.cod_uf, b.sigla_uf
-ORDER BY 3 DESC;
+-- RETORNA A MÉDIA POR ESTADO ORGANIZADA PELO MAIOR RESULTADO
+SELECT 
+      ESTADO
+    , AVG(POPULACAO) 
+FROM 
+    SENSO
+WHERE 
+    ANO = '2014'
+GROUP BY 
+    ESTADO
+ORDER BY 
+    2 DESC;
 
-SELECT a.regiao, AVG(a.populacao) AS media
-FROM senso a
-WHERE ano = '2014'
-GROUP BY a.regiao;
+-- RESULTADO DA MÉDIA POR UF UTILIZANDO JUNÇÃO DE TABELAS
+SELECT 
+      A.COD_UF
+    , B.SIGLA_UF
+    , AVG(A.POPULACAO) AS MEDIA
+FROM 
+    SENSO AS A 
+INNER JOIN 
+    UF AS B ON A.COD_UF = B.COD_UF
+WHERE 
+    A.ANO = '2014'
+GROUP BY 
+      A.COD_UF
+    , B.SIGLA_UF
+ORDER BY 
+    3 DESC;
 
--- 3. Valores Mínimos
-SELECT MIN(a.populacao) 
-FROM senso a
-WHERE ano = '2014';
+-- RETORNA O RESULTADO MÉDIO AGRUPADO POR REGIÃO GEOGRÁFICA
+SELECT 
+      A.REGIAO
+    , AVG(A.POPULACAO) AS MEDIA
+FROM 
+    SENSO AS A
+WHERE 
+    ANO = '2014'
+GROUP BY 
+    A.REGIAO;
 
-SELECT a.estado, MIN(a.populacao) 
-FROM senso a
-WHERE ano = '2014'
-GROUP BY a.estado;
+-- =============================================================================
+-- 3. VALORES MÍNIMOS (MIN)
+-- =============================================================================
 
--- 4. Valores Máximos
-SELECT MAX(a.populacao) 
-FROM senso a
-WHERE a.ano = '2014';
+-- BUSCA O MENOR VALOR POPULACIONAL PARA RETORNO SIMPLIFICADO
+SELECT MIN(A.POPULACAO) 
+FROM SENSO AS A
+WHERE ANO = '2014';
 
-SELECT a.estado, MAX(a.populacao) 
-FROM senso a
-WHERE a.ano = '2014'
-GROUP BY a.estado
-ORDER BY 2 DESC;
+-- GERA O RESULTADO DO MÍNIMO POPULACIONAL POR UNIDADE FEDERATIVA
+SELECT 
+      A.ESTADO
+    , MIN(A.POPULACAO) 
+FROM 
+    SENSO AS A
+WHERE 
+    ANO = '2014'
+GROUP BY 
+    A.ESTADO;
 
-SELECT b.sigla_uf, MAX(a.POPULACAO) AS maximo
-FROM senso a 
-INNER JOIN uf b ON a.cod_uf = b.cod_uf
-WHERE a.ano = '2014'
-GROUP BY b.sigla_uf
-ORDER BY 2;
+-- =============================================================================
+-- 4. VALORES MÁXIMOS (MAX)
+-- =============================================================================
 
--- 5. Somas e Totais
-SELECT b.sigla_uf, SUM(a.POPULACAO) AS total_pop
-FROM senso a
-INNER JOIN uf b ON a.cod_uf = b.cod_uf
-WHERE a.ano = '2014'
-GROUP BY b.sigla_uf
-ORDER BY 2;
+-- RETORNA O MAIOR VALOR ENCONTRADO NO SENSO DE 2014
+SELECT MAX(A.POPULACAO) 
+FROM SENSO AS A
+WHERE A.ANO = '2014';
 
-SELECT a.cod_uf, SUM(a.populacao) 
-FROM senso a
-WHERE ano = '2014'
-GROUP BY a.cod_uf
-ORDER BY 2 DESC;
+-- EXIBE O RESULTADO DO MUNICÍPIO MAIS POPULOSO POR ESTADO
+SELECT 
+      A.ESTADO
+    , MAX(A.POPULACAO) 
+FROM 
+    SENSO AS A
+WHERE 
+    A.ANO = '2014'
+GROUP BY 
+    A.ESTADO
+ORDER BY 
+    2 DESC;
 
--- 6. Contagens (COUNT)
+-- =============================================================================
+-- 5. SOMAS E TOTAIS (SUM)
+-- =============================================================================
+
+-- SOMA A POPULAÇÃO TOTAL POR SIGLA PARA RETORNO DO MONTANTE ESTADUAL
+SELECT 
+      B.SIGLA_UF
+    , SUM(A.POPULACAO) AS TOTAL_POP
+FROM 
+    SENSO AS A
+INNER JOIN 
+    UF AS B ON A.COD_UF = B.COD_UF
+WHERE 
+    A.ANO = '2014'
+GROUP BY 
+    B.SIGLA_UF
+ORDER BY 
+    2;
+
+-- =============================================================================
+-- 6. CONTAGENS (COUNT)
+-- =============================================================================
+
+-- RETORNA A QUANTIDADE TOTAL DE REGISTROS DO ANO ESPECIFICADO
 SELECT COUNT(*) 
-FROM senso a 
-WHERE a.ano = '2014';
+FROM SENSO AS A 
+WHERE A.ANO = '2014';
 
-SELECT a.ano, COUNT(*) AS qtd_cidades 
-FROM senso a 
-GROUP BY a.ano;
-
-SELECT COUNT(DISTINCT cod_uf) FROM senso;
-SELECT COUNT(cod_uf) FROM senso;
-
-SELECT a.estado, COUNT(*) 
-FROM senso a
-WHERE ano = '2014'
-GROUP BY a.estado
-ORDER BY 2 DESC;
-
-SELECT a.regiao, COUNT(*) 
-FROM senso a
-WHERE ano = '2014'
-GROUP BY a.regiao
-ORDER BY 2 DESC;
-
--- 7. Resumos Agrupados e Rollup
+-- GERA O RESULTADO DA QUANTIDADE DE CIDADES POR ANO DE SENSO
 SELECT 
-    AVG(a.populacao) AS media_pop,
-    MIN(a.populacao) AS minimo_pop,
-    MAX(a.populacao) AS maximo_pop,
-    SUM(a.populacao) AS soma_pop,
-    COUNT(*)         AS qtd_cidades
-FROM senso a
-WHERE ano = '2014';
+      A.ANO
+    , COUNT(*) AS QTD_CIDADES 
+FROM SENSO AS A 
+GROUP BY A.ANO;
 
--- Relatório por estado com Total Geral (Rollup)
+-- COMPARAÇÃO ENTRE CONTAGEM ÚNICA E TOTAL PARA RETORNO DE DIVERSIDADE
+SELECT COUNT(DISTINCT COD_UF) FROM SENSO;
+SELECT COUNT(COD_UF) FROM SENSO;
+
+-- =============================================================================
+-- 7. RESUMOS AGRUPADOS E ROLLUP
+-- =============================================================================
+
+-- CONSOLIDA TODAS AS MÉTRICAS EM UM ÚNICO RESULTADO DE RETORNO
 SELECT 
-    IFNULL(a.estado, 'TOTAL BRASIL') AS estado, 
-    COUNT(*) AS qtd_municipios
-FROM senso a 
-WHERE a.ano = '2014'
-GROUP BY a.estado WITH ROLLUP;
+      AVG(A.POPULACAO) AS MEDIA_POP, 
+      MIN(A.POPULACAO) AS MINIMO_POP, 
+      MAX(A.POPULACAO) AS MAXIMO_POP, 
+      SUM(A.POPULACAO) AS SOMA_POP, 
+      COUNT(*)         AS QTD_CIDADES
+FROM SENSO AS A
+WHERE ANO = '2014';
 
--- 8. Subqueries (Destaques por Estado)
-SELECT a.estado, a.nome_mun, a.populacao
-FROM (
-    SELECT b.estado, MAX(populacao) AS populacao 
-    FROM senso b
-    WHERE ano = '2014'
-    GROUP BY b.estado
-) b
-JOIN senso a ON a.estado = b.estado 
-AND a.populacao = b.populacao
-WHERE a.ano = '2014'
-ORDER BY a.populacao DESC;
-
--- 9. Estatísticas de Dispersão e Crescimento
-SELECT STDDEV(a.populacao) FROM senso a 
-WHERE a.ano = '2014';
-SELECT STDDEV_POP(populacao) FROM senso;
-
--- Comparativo Percentual 2010 vs 2014
+-- RESULTADO POR ESTADO COM ACRÉSCIMO DO TOTAL GERAL (ROLLUP)
 SELECT 
-    a.nome_mun,
-    a.populacao AS senso_2010,
-    b.populacao AS senso_2014,
-    ((b.populacao - a.populacao) / a.populacao) * 100 AS crescimento_percentual
-FROM senso a 
-INNER JOIN senso b 
-ON a.cod_mun = b.cod_mun
-WHERE a.ano = '2010' 
-AND b.ano = '2014';
+	IFNULL(A.ESTADO, 'TOTAL BRASIL') AS ESTADO , 
+	COUNT(*) AS QTD_MUNICIPIOS
+FROM SENSO AS A 
+WHERE A.ANO = '2014'
+GROUP BY A.ESTADO WITH ROLLUP;
 
--- Variância
-SELECT VAR_POP(POPULACAO) FROM senso 
-WHERE ano = '2014';
+-- =============================================================================
+-- 8. SUBQUERIES (DESTAQUES POR ESTADO)
+-- =============================================================================
 
-SELECT VAR_SAMP(POPULACAO) FROM senso;
+-- UTILIZA SUBQUERY PARA IDENTIFICAR O MUNICÍPIO QUE GERA O RESULTADO MÁXIMO
+SELECT 
+      A.ESTADO, 
+      A.NOME_MUN, 
+      A.POPULACAO
+FROM (SELECT 
+          B.ESTADO, 
+          MAX(POPULACAO) AS POPULACAO 
+    FROM SENSO AS B
+    WHERE ANO = '2014'
+    GROUP BY B.ESTADO
+) AS B
+JOIN 
+    SENSO AS A ON A.ESTADO = B.ESTADO 
+    AND A.POPULACAO = B.POPULACAO
+WHERE A.ANO = '2014'
+ORDER BY A.POPULACAO DESC;
 
--- ========================================================
+-- =============================================================================
+-- 9. ESTATÍSTICAS DE DISPERSÃO E CRESCIMENTO
+-- =============================================================================
+
+-- CALCULA O DESVIO PADRÃO PARA RETORNO DA VARIAÇÃO POPULACIONAL
+SELECT STDDEV(A.POPULACAO) FROM SENSO AS A WHERE A.ANO = '2014';
+
+-- COMPARA O CRESCIMENTO ENTRE PERÍODOS PARA RETORNO PERCENTUAL POR MUNICÍPIO
+SELECT 
+      A.NOME_MUN, A.POPULACAO AS SENSO_2010, 
+      B.POPULACAO AS SENSO_2014, 
+      ((B.POPULACAO - A.POPULACAO) / A.POPULACAO) * 100 
+      AS CRESCIMENTO_PERCENTUAL
+FROM SENSO AS A 
+INNER JOIN SENSO AS B ON A.COD_MUN = B.COD_MUN
+WHERE A.ANO = '2010' 
+    AND B.ANO = '2014';
+
+-- CALCULA A VARIANÇA PARA ANÁLISE DO RESULTADO DE DISPERSÃO DOS DADOS
+SELECT VAR_POP(POPULACAO) FROM SENSO WHERE ANO = '2014';
+
+-- =============================================================================
 -- BANCO DE DADOS: WORLD (AGREGAÇÃO DE LISTAS)
--- ========================================================
-USE world;
+-- =============================================================================
+USE WORLD;
 
--- Lista de populações por continente separadas por ponto e vírgula
-SELECT Continent, 
-       GROUP_CONCAT(DISTINCT Population ORDER BY Population
-       DESC SEPARATOR ';') AS grupo 
-FROM country 
-GROUP BY Continent;
+-- GERA UMA LISTA AGREGADA PARA RETORNO DE POPULAÇÕES POR CONTINENTE
+SELECT CONTINENT, 
+GROUP_CONCAT(DISTINCT POPULATION ORDER BY POPULATION DESC SEPARATOR ';') AS GRUPO 
+FROM COUNTRY 
+GROUP BY CONTINENT;
 
--- Lista de regiões por continente
-SELECT Continent, 
-       GROUP_CONCAT(DISTINCT Region ORDER BY Region 
-       DESC SEPARATOR ';') AS regiao 
-FROM country 
-GROUP BY Continent;
+-- GERA UMA LISTA DE REGIÕES PARA RETORNO EM FORMATO DE TEXTO ÚNICO
+SELECT CONTINENT, 
+GROUP_CONCAT(DISTINCT REGION ORDER BY REGION DESC SEPARATOR ';') AS REGIAO 
+FROM COUNTRY 
+GROUP BY CONTINENT;

@@ -1,45 +1,96 @@
--- Seleção básica de contexto
+/*******************************************************************************
+  SCRIPT DE ESTUDO: OPERADORES ARITMÉTICOS, LÓGICOS E FILTROS (DQL)
+  PADRONIZAÇÃO: LETRAS MAIÚSCULAS PARA PALAVRAS-CHAVE E IDENTAÇÃO ALINHADA.
+*******************************************************************************/
+
+-- DEFINIÇÃO DO AMBIENTE DE TRABALHO
 USE curso;
 
--- Operadores Aritméticos e Cálculos de Porcentagem (Literais)
-SELECT 10 + 5  AS soma;
-SELECT 10 - 5  AS subtracao;
-SELECT 10 * 5  AS multiplicacao;
-SELECT 10 / 5  AS divisao;
-SELECT 10 % 3  AS resto_modulo;
+-- =============================================================================
+-- 1. OPERADORES ARITMÉTICOS (LITERAIS)
+-- =============================================================================
 
--- Aplicação de Acréscimo e Decréscimo de 10%
+-- REALIZA A ADIÇÃO E APRESENTA O RESULTADO NA COLUNA SOMA
+SELECT 10 + 5 AS SOMA;
+
+-- REALIZA A SUBTRAÇÃO E APRESENTA O RESULTADO NA COLUNA SUBTRACAO
+SELECT 10 - 5 AS SUBTRACAO;
+
+-- REALIZA A MULTIPLICAÇÃO E APRESENTA O RESULTADO NA COLUNA MULTIPLICACAO
+SELECT 10 * 5 AS MULTIPLICACAO;
+
+-- REALIZA A DIVISÃO E APRESENTA O QUOCIENTE COMO RETORNO
+SELECT 10 / 5 AS DIVISAO;
+
+-- REALIZA O CÁLCULO DE MÓDULO PARA RETORNO DO RESTO DA DIVISÃO
+SELECT 10 % 3 AS RESTO_MODULO;
+
+
+-- =============================================================================
+-- 2. CÁLCULOS DE PORCENTAGEM E PROJEÇÕES
+-- =============================================================================
+
+-- APLICA FÓRMULAS MATEMÁTICAS PARA RETORNO DE PROJEÇÕES POPULACIONAIS
 SELECT 
-    nome_mun, 
-    populacao,
-    (populacao * 1.10) AS acrescimo_10,
-    (populacao * 0.90) AS decrescimo_10
-FROM senso 
-WHERE ano = '2014';
+      NOME_MUN, POPULACAO, 
+      (POPULACAO * 1.10) AS ACRESCIMO_10   -- O RESULTADO EXIBE UM AUMENTO DE 10%, (POPULACAO * 0.90) AS DECRESCIMO_10  -- O RESULTADO EXIBE UMA REDUÇÃO DE 10%
+FROM SENSO 
+WHERE ANO = '2014';
 
--- Operadores Relacionais e Comparação
-SELECT * FROM senso WHERE populacao >= 100000;
-SELECT * FROM senso WHERE populacao <= 50000;
-SELECT * FROM senso WHERE ano <> '2014';
-SELECT * FROM senso WHERE ano != '2015';
 
--- Operadores Lógicos e Filtros de Texto
-SELECT * FROM senso 
-WHERE cod_uf = '35' AND ano = '2014';
+-- =============================================================================
+-- 3. OPERADORES RELACIONAIS E COMPARAÇÃO
+-- =============================================================================
 
-SELECT * FROM senso 
-WHERE cod_uf = '35' OR cod_uf = '33';
+-- FILTRA E GERA O RETORNO DE REGISTROS COM POPULAÇÃO MAIOR OU IGUAL A 100 MIL
+SELECT * FROM SENSO WHERE POPULACAO >= 100000;
 
--- Tratamento de Valores Nulos e Padrões de Texto
-SELECT * FROM senso WHERE populacao IS NOT NULL;
+-- FILTRA E GERA O RETORNO DE REGISTROS COM POPULAÇÃO MENOR OU IGUAL A 50 MIL
+SELECT * FROM SENSO WHERE POPULACAO <= 50000;
 
-SELECT * FROM senso WHERE nome_mun LIKE 'A%';    -- Começa com A
-SELECT * FROM senso WHERE nome_mun LIKE '%O';    -- Termina com O
-SELECT * FROM senso WHERE nome_mun LIKE '%PA%';  -- Contém PA
+-- UTILIZA OPERADORES DE DIFERENÇA PARA FILTRAR O RESULTADO POR ANO
+SELECT * FROM SENSO WHERE ANO <> '2014';
+SELECT * FROM SENSO WHERE ANO != '2015';
 
--- Ordenação de Dados
-SELECT * FROM senso 
-ORDER BY nome_mun ASC;
 
-SELECT * FROM senso 
-ORDER BY populacao DESC;
+-- =============================================================================
+-- 4. OPERADORES LÓGICOS (BOOLEANOS)
+-- =============================================================================
+
+-- UTILIZA A CONDIÇÃO AND PARA UM RESULTADO QUE ATENDA A AMBOS OS CRITÉRIOS
+SELECT * FROM SENSO 
+WHERE COD_UF = '35' AND ANO = '2014';
+
+-- UTILIZA A CONDIÇÃO OR PARA UM RETORNO QUE ATENDA A QUALQUER UM DOS CRITÉRIOS
+SELECT * FROM SENSO 
+WHERE COD_UF = '35' OR COD_UF = '33';
+
+
+-- =============================================================================
+-- 5. TRATAMENTO DE NULOS E PADRÕES DE TEXTO (WILDCARDS)
+-- =============================================================================
+
+-- FILTRA APENAS CAMPOS PREENCHIDOS PARA GARANTIR O RESULTADO SEM VALORES NULOS
+SELECT * FROM SENSO WHERE POPULACAO IS NOT NULL;
+
+-- BUSCA POR NOMES QUE INICIAM COM 'A', DEFININDO O RETORNO PELO PREFIXO
+SELECT * FROM SENSO WHERE NOME_MUN LIKE 'A%';
+
+-- BUSCA POR NOMES QUE TERMINAM COM 'O', DEFININDO O RETORNO PELO SUFIXO
+SELECT * FROM SENSO WHERE NOME_MUN LIKE '%O';
+
+-- BUSCA POR NOMES QUE CONTENHAM 'PA', GERANDO UM RESULTADO POR FRAGMENTO INTERNO
+SELECT * FROM SENSO WHERE NOME_MUN LIKE '%PA%';
+
+
+-- =============================================================================
+-- 6. ORDENAÇÃO DE RESULTADOS
+-- =============================================================================
+
+-- ORGANIZA O RETORNO EM ORDEM ALFABÉTICA CRESCENTE (A-Z)
+SELECT * FROM SENSO 
+ORDER BY NOME_MUN ASC;
+
+-- ORGANIZA O RESULTADO EM ORDEM NUMÉRICA DECRESCENTE (MAIOR PARA MENOR)
+SELECT * FROM SENSO 
+ORDER BY POPULACAO DESC;

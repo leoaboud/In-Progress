@@ -1,35 +1,72 @@
--- Configuração do Banco
-USE curso;
+/*******************************************************************************
+  SCRIPT DE ESTUDO: DCL (DATA CONTROL LANGUAGE) E SEGURANÇA
+  PADRONIZAÇÃO: CONTROLE DE ACESSO COM FOCO EM RESULTADO E RETORNO DE PERMISSÕES.
+*******************************************************************************/
 
--- Concessão de Privilégios em Nível de Tabela
-GRANT UPDATE ON funcionarios TO 'ALUNO'@'localhost';
-GRANT UPDATE ON *.* TO 'ALUNO'@'localhost';
+-- 1. CONFIGURAÇÃO DE CONTEXTO
+USE CURSO;
 
-GRANT DELETE ON funcionarios TO 'ALUNO'@'localhost';
-GRANT DELETE ON *.* TO 'ALUNO'@'localhost';
 
-GRANT INSERT ON funcionarios TO 'ALUNO'@'localhost';
+-- =============================================================================
+-- 2. GRANT: CONCESSÃO DE PRIVILÉGIOS (NÍVEL DE TABELA E GLOBAL)
+-- =============================================================================
 
--- Concessão de Múltiplos Privilégios e Colunas Específicas
-GRANT SELECT, INSERT        ON funcionarios TO 'ALUNO'@'localhost';
-GRANT SELECT (nome, setor)  ON funcionarios TO 'ALUNO'@'localhost';
+-- CONCEDE PERMISSÃO DE UPDATE PARA GERAR O RESULTADO DE ATUALIZAÇÃO PELO USUÁRIO
+GRANT UPDATE ON FUNCIONARIOS TO 'ALUNO'@'LOCALHOST';
+GRANT UPDATE ON *.* TO 'ALUNO'@'LOCALHOST'; 
 
--- Concessão de Execução de Procedure
-GRANT EXECUTE ON PROCEDURE TESTE.proc_quadrado TO 'ALUNO'@'localhost';
+-- CONCEDE PERMISSÃO DE DELETE PARA QUE O USUÁRIO TENHA O RETORNO DE EXCLUSÃO
+GRANT DELETE ON FUNCIONARIOS TO 'ALUNO'@'LOCALHOST';
+GRANT DELETE ON *.* TO 'ALUNO'@'LOCALHOST';
 
--- Concessão de Plenos Poderes
-GRANT ALL PRIVILEGES ON funcionarios TO 'ALUNO'@'localhost';
-GRANT ALL PRIVILEGES ON *.* TO 'ALUNO'@'localhost';
+-- CONCEDE PERMISSÃO DE INSERT PARA PERMITIR O RESULTADO DE NOVAS INSERÇÕES
+GRANT INSERT ON FUNCIONARIOS TO 'ALUNO'@'LOCALHOST';
 
--- Atualização e Conferência
+
+-- =============================================================================
+-- 3. PRIVILÉGIOS AVANÇADOS E COLUNAS ESPECÍFICAS
+-- =============================================================================
+
+-- AGRUPA MÚLTIPLOS PRIVILÉGIOS EM UM ÚNICO RESULTADO DE CONCESSÃO
+GRANT SELECT, INSERT ON FUNCIONARIOS TO 'ALUNO'@'LOCALHOST';
+
+-- DEFINE ACESSO RESTRITO A COLUNAS PARA UM RETORNO DE DADOS NÃO SENSÍVEIS
+GRANT SELECT (NOME, SETOR) ON FUNCIONARIOS TO 'ALUNO'@'LOCALHOST';
+
+-- PERMITE A EXECUÇÃO DE OBJETOS COM RETORNO DE LÓGICA PROGRAMADA
+GRANT EXECUTE ON PROCEDURE CURSO.PROC_QUADRADO TO 'ALUNO'@'LOCALHOST';
+
+
+-- =============================================================================
+-- 4. PLENOS PODERES (SUPER USER) E ATUALIZAÇÃO
+-- =============================================================================
+
+-- ATRIBUI TODOS OS PRIVILÉGIOS PARA UM RESULTADO DE ACESSO TOTAL
+GRANT ALL PRIVILEGES ON FUNCIONARIOS TO 'ALUNO'@'LOCALHOST';
+GRANT ALL PRIVILEGES ON *.* TO 'ALUNO'@'LOCALHOST';
+
+-- ATUALIZA AS TABELAS DE ACESSO PARA GARANTIR O RETORNO IMEDIATO DAS REGRAS
 FLUSH PRIVILEGES;
-SELECT * FROM mysql.user WHERE User = 'ALUNO';
 
--- Revogação de Acessos
-REVOKE UPDATE ON funcionarios FROM 'ALUNO'@'localhost'; 
+-- CONSULTA O DICIONÁRIO DE DADOS PARA VERIFICAR O RESULTADO DO PERFIL DO USUÁRIO
+SELECT * FROM MYSQL.USER WHERE USER = 'ALUNO';
 
+
+-- =============================================================================
+-- 5. REVOKE: REVOGAÇÃO DE ACESSOS
+-- =============================================================================
+
+-- REMOVE O ACESSO DE ATUALIZAÇÃO IMPACTANDO NO RESULTADO DE PERMISSÕES DO USUÁRIO
+REVOKE UPDATE ON FUNCIONARIOS FROM 'ALUNO'@'LOCALHOST'; 
+
+-- EXECUTA A LIMPEZA TOTAL PARA UM RETORNO DE ACESSO ZERO AO SISTEMA
 FLUSH PRIVILEGES;
-REVOKE ALL PRIVILEGES ON *.* FROM 'ALUNO'@'localhost';
+REVOKE ALL PRIVILEGES ON *.* FROM 'ALUNO'@'LOCALHOST';
 
--- Conferência Final
-SELECT * FROM mysql.user WHERE User = 'ALUNO';
+
+-- =============================================================================
+-- 6. CONFERÊNCIA FINAL
+-- =============================================================================
+
+-- VALIDAÇÃO FINAL PARA ASSEGURAR O RESULTADO DAS REVOGAÇÕES NO BANCO
+SELECT * FROM MYSQL.USER WHERE USER = 'ALUNO';

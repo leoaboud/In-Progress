@@ -1,115 +1,80 @@
-<<<<<<< Updated upstream
--- Configuração do Banco
-USE curso;
+/*******************************************************************************
+  SCRIPT DE ESTUDO: OPERAÇÕES CRUD (DDL / DML)
+  PADRONIZAÇÃO: ALINHAMENTO VERTICAL E COMENTÁRIOS PADRONIZADOS.
+*******************************************************************************/
 
--- 1. Criação de Tabelas
-CREATE TABLE funcionarios (
-    id INT NOT NULL AUTO_INCREMENT,
-    nome VARCHAR(50) NOT NULL,
-=======
--- Define o banco de dados de trabalho
-USE curso;
+-- DEFINIÇÃO DO BANCO DE DADOS DE TRABALHO
+USE CURSO;
 
--- Criação da estrutura básica com chave primária auto-incremental
-CREATE TABLE IF NOT EXISTS funcionarios (
-    id      INT NOT NULL AUTO_INCREMENT,
-    nome    VARCHAR(50) NOT NULL,
->>>>>>> Stashed changes
-    salario DECIMAL(10,2),
-    setor   VARCHAR(30),
-    PRIMARY KEY (id)
+-- =============================================================================
+-- 2. DDL: CREATE TABLE (DEFINIÇÃO DE DADOS)
+-- =============================================================================
+
+-- CRIA A ESTRUTURA DA TABELA CASO NÃO EXISTA PARA GERAR O RESULTADO ESPERADO
+CREATE TABLE IF NOT EXISTS FUNCIONARIOS 
+(
+      ID      INT NOT NULL AUTO_INCREMENT, 
+      NOME    VARCHAR(50) NOT NULL, 
+      SALARIO DECIMAL(10, 2), 
+      SETOR   VARCHAR(30), 
+      PRIMARY KEY (ID)
 );
 
--- Retorna todos os registros da tabela
-SELECT * FROM funcionarios;
 
--- Retorna colunas específicas utilizando apelido (alias) para o setor
+-- =============================================================================
+-- 3. DQL: SELECT (CONSULTA DE DADOS)
+-- =============================================================================
+
+-- EXECUTA A BUSCA TOTAL DE REGISTROS PARA RETORNO DE TODAS AS COLUNAS
+SELECT * FROM FUNCIONARIOS;
+
+-- SELECIONA COLUNAS ESPECÍFICAS ONDE O RESULTADO UTILIZA ALIAS PARA O SETOR
 SELECT 
-    id, 
-    nome, 
-    salario, 
-    setor AS depto
-FROM funcionarios;
+      ID, NOME,
+      SALARIO,
+      SETOR AS DEPTO 
+FROM FUNCIONARIOS;
 
--- Inserção de registros completos (nome, salário e setor)
-INSERT INTO funcionarios (nome, salario, setor) VALUES
-('Joao',      1000.00, 'RH'), 
-('Jose',      2000.00, 'Financeiro'), 
-('Alexandre', 3000.00, 'TI');
 
--- Inserção de registros parciais (setor ficará como NULL)
-INSERT INTO funcionarios (nome, salario) VALUES 
-('Pedro',   1000.00), 
-('Cleiton', 5000.00);
+-- =============================================================================
+-- 4. DML: INSERT (INSERÇÃO DE DADOS)
+-- =============================================================================
 
--- Modificação de um valor específico baseado no ID
-UPDATE funcionarios 
-SET    salario = salario * 1.5
-WHERE  id = 2;
+-- REALIZA A INSERÇÃO COMPLETA GERANDO O RESULTADO DE TRÊS NOVAS LINHAS
+INSERT INTO FUNCIONARIOS (NOME, SALARIO, SETOR) VALUES
+      ('JOAO',      1000.00, 'RH'), 
+      ('JOSE',      2000.00, 'FINANCEIRO'), 
+      ('ALEXANDRE', 3000.00, 'TI');
 
--- Atualização em massa para registros que não possuem ID igual a 1
-UPDATE funcionarios 
-SET    salario = salario * 1.5, 
-       setor   = 'TI'
-WHERE  id <> 1;
+-- REALIZA A INSERÇÃO PARCIAL COM RETORNO DE VALOR NULO PARA O CAMPO SETOR
+INSERT INTO FUNCIONARIOS (NOME, SALARIO) VALUES 
+      ('PEDRO',   1000.00), 
+      ('CLEITON', 5000.00);
 
-<<<<<<< Updated upstream
--- delete
-delete
-from funcionarios
-where id = '1';
-=======
--- Define o banco de dados de trabalho
-USE curso;
 
--- Criação da estrutura básica com chave primária auto-incremental
-CREATE TABLE IF NOT EXISTS funcionarios (
-    id      INT NOT NULL AUTO_INCREMENT,
-    nome    VARCHAR(50) NOT NULL,
-    salario DECIMAL(10,2),
-    setor   VARCHAR(30),
-    PRIMARY KEY (id)
-);
+-- =============================================================================
+-- 5. DML: UPDATE (ATUALIZAÇÃO DE DADOS)
+-- =============================================================================
 
--- Retorna todos os registros da tabela
-SELECT * FROM funcionarios;
+-- ATUALIZA O SALÁRIO DO ID 2 COM RETORNO DE VALOR MAJORADO EM 50%
+UPDATE FUNCIONARIOS 
+SET SALARIO = SALARIO * 1.5
+WHERE ID = 2;
 
--- Retorna colunas específicas utilizando apelido (alias) para o setor
-SELECT 
-    id, 
-    nome, 
-    salario, 
-    setor AS depto
-FROM funcionarios;
+-- MODIFICA MÚLTIPLOS CAMPOS E GERA UM RESULTADO COLETIVO PARA OS DEMAIS IDs
+UPDATE FUNCIONARIOS 
+SET SALARIO = SALARIO * 1.5, 
+	SETOR   = 'TI'
+WHERE ID <> 1;
 
--- Inserção de registros completos (nome, salário e setor)
-INSERT INTO funcionarios (nome, salario, setor) VALUES
-('Joao',      1000.00, 'RH'), 
-('Jose',      2000.00, 'Financeiro'), 
-('Alexandre', 3000.00, 'TI');
 
--- Inserção de registros parciais (setor ficará como NULL)
-INSERT INTO funcionarios (nome, salario) VALUES 
-('Pedro',   1000.00), 
-('Cleiton', 5000.00);
+-- =============================================================================
+-- 6. DML: DELETE (REMOÇÃO DE DADOS)
+-- =============================================================================
 
--- Modificação de um valor específico baseado no ID
-UPDATE funcionarios 
-SET    salario = salario * 1.5
-WHERE  id = 2;
+-- EXCLUI O REGISTRO ESPECÍFICO IMPACTANDO NO RESULTADO FINAL DA LISTAGEM
+DELETE FROM FUNCIONARIOS
+WHERE ID = 1;
 
--- Atualização em massa para registros que não possuem ID igual a 1
-UPDATE funcionarios 
-SET    salario = salario * 1.5, 
-       setor   = 'TI'
-WHERE  id <> 1;
-
--- Exclusão física de um registro específico
-DELETE FROM funcionarios
-WHERE  id = 1;
->>>>>>> ca56ccc8eb09c3e9c9247331a67d597e260e971f
-=======
--- Exclusão física de um registro específico
-DELETE FROM funcionarios
-WHERE  id = 1;
->>>>>>> Stashed changes
+-- CONSULTA FINAL PARA VERIFICAÇÃO DO RETORNO APÓS AS MANIPULAÇÕES
+SELECT * FROM FUNCIONARIOS;

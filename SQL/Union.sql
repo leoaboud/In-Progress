@@ -1,60 +1,84 @@
--- 1. Simulando Erro de Estrutura
--- O MySQL retornará erro porque o número de colunas (3 vs 2) não coincide
-SELECT '1', '1', 'ABC'
+/*******************************************************************************
+  SCRIPT DE ESTUDO: OPERADORES DE CONJUNTO (UNION & UNION ALL)
+  PADRONIZAÇÃO: ALINHAMENTO DE SELECTS E LÓGICA DE UNIÃO DE CONJUNTOS.
+*******************************************************************************/
+
+-- 1. CONFIGURAÇÃO DE CONTEXTO
+USE CURSO;
+
+-- =============================================================================
+-- 2. REGRAS DE ESTRUTURA (RESTRIÇÕES)
+-- =============================================================================
+
+/* PARA UM RETORNO VÁLIDO, O NÚMERO E TIPO DE COLUNAS DEVEM COINCIDIR.
+   O EXEMPLO ABAIXO GERARIA UM RESULTADO DE ERRO POR DIVERGÊNCIA DE COLUNAS:
+   
+   SELECT '1', '1', 'ABC' 
+   UNION 
+   SELECT 'A', '2';      
+*/
+
+
+-- =============================================================================
+-- 3. LÓGICA DE DUPLICATAS: UNION VS UNION ALL
+-- =============================================================================
+
+-- UNION ALL: REALIZA O EMPILHAMENTO TOTAL COM RETORNO DE TODAS AS LINHAS
+SELECT 'A' AS CAMPO1, 'B' AS CAMPO2
+UNION ALL
+SELECT 'A' AS CAMPO1, 'B' AS CAMPO2;
+
+-- UNION: COMPARA OS CONJUNTOS PARA GERAR UM RESULTADO SEM DUPLICATAS (DISTINCT)
+SELECT 'A' AS CAMPO1, 'B' AS CAMPO2
+UNION
+SELECT 'A' AS CAMPO1, 'B' AS CAMPO2;
+
+
+-- =============================================================================
+-- 4. APLICAÇÃO EM DADOS REAIS (TABELA SENSO)
+-- =============================================================================
+
+-- REALIZA A UNIÃO DE ANOS DISTINTOS PARA UM RETORNO UNIFICADO DE DADOS
+SELECT ANO, ESTADO FROM SENSO WHERE ANO = '2014'
 UNION 
-SELECT 'A', '2';
+SELECT ANO, ESTADO FROM SENSO WHERE ANO = '2013';
 
--- 2. Diferença entre UNION e UNION ALL (Lógica de Conjuntos)
--- UNION ALL: Mantém tudo, inclusive duplicatas
-SELECT 'A' AS campo1, 'B' AS campo2
+-- UTILIZA UNION ALL PARA UM RESULTADO DE PROCESSAMENTO MAIS RÁPIDO
+SELECT ANO, ESTADO FROM SENSO WHERE ANO = '2014'
 UNION ALL
-SELECT 'A' AS campo3, 'B' AS campo4;
+SELECT ANO, ESTADO FROM SENSO WHERE ANO = '2013';
 
--- UNION: Remove linhas idênticas (atua como um DISTINCT global)
-SELECT 'A' AS campo1, 'B' AS campo2
+-- AO REMOVER O ANO, O RESULTADO DO UNION AGRUPARÁ OS ESTADOS REPETIDOS
+SELECT ESTADO FROM SENSO WHERE ANO = '2014'
 UNION
-SELECT 'A' AS campo3, 'B' AS campo4;
+SELECT ESTADO FROM SENSO WHERE ANO = '2013';
 
--- 3. União de Dados Reais (Anos Diferentes)
--- Como os anos são diferentes ('2014' e '2013'), as linhas são únicas por natureza
-SELECT ano, estado FROM curso.senso WHERE ano = '2014'
-UNION 
-SELECT ano, estado FROM curso.senso WHERE ano = '2013';
 
--- UNION ALL aqui terá o mesmo resultado visual que o UNION acima, 
--- mas é mais rápido por não processar a remoção de duplicatas
-SELECT ano, estado FROM curso.senso WHERE ano = '2014'
-UNION ALL
-SELECT ano, estado FROM curso.senso WHERE ano = '2013';
+-- =============================================================================
+-- 5. UNIÃO COMPLEXA COM ORDENAÇÃO (ORDER BY)
+-- =============================================================================
 
--- 4. Impacto do UNION em Colunas Únicas
--- Se selecionarmos apenas 'estado', o UNION mostrará cada estado apenas uma vez
-SELECT estado FROM curso.senso WHERE ano = '2014'
+-- COMBINA FILTROS ESPECÍFICOS PARA UM RETORNO DETALHADO DE MUNICÍPIOS
+SELECT 
+      ANO, 
+      ESTADO, 
+      NOME_MUN, 
+      POPULACAO
+      
+FROM SENSO
+WHERE ANO = '2014' AND COD_UF = '11'
+
 UNION
-SELECT estado FROM curso.senso WHERE ano = '2013';
 
--- O UNION ALL repetirá os estados para cada registro encontrado nos dois anos
-SELECT estado FROM curso.senso WHERE ano = '2014'
-UNION ALL
-SELECT estado FROM curso.senso WHERE ano = '2013';
+SELECT 
+      ANO, 
+      ESTADO, 
+      NOME_MUN, 
+      POPULACAO
+      
+FROM SENSO
+WHERE ANO = '2013' AND COD_UF = '11'
 
--- 5. União Complexa com Ordenação Final
--- O ORDER BY deve vir sempre ao final do último SELECT e afeta o resultado todo
-SELECT ano, estado, nome_mun, populacao
-FROM   curso.senso
-WHERE  ano = '2014' AND cod_uf = '11'
-UNION
-SELECT ano, estado, nome_mun, populacao
-FROM   curso.senso
-WHERE  ano = '2013' AND cod_uf = '11'
-ORDER  BY nome_mun, ano;
-
--- Mesma consulta, mas permitindo duplicatas (caso existissem)
-SELECT ano, estado, nome_mun, populacao
-FROM   curso.senso
-WHERE  ano = '2014' AND cod_uf = '11'
-UNION ALL
-SELECT ano, estado, nome_mun, populacao
-FROM   curso.senso
-WHERE  ano = '2013' AND cod_uf = '11'
-ORDER  BY nome_mun, ano;
+-- ORGANIZA O RESULTADO FINAL DE TODO O CONJUNTO UNIFICADO
+ORDER BY NOME_MUN ASC, 
+ANO DESC;

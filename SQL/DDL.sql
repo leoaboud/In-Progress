@@ -1,163 +1,138 @@
-<<<<<<< Updated upstream
-<<<<<<< HEAD
-CREATE TABLE funcionario 
-(
-    matricula INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    nome 		VARCHAR(50) NOT NULL,
-    sobrenome 	VARCHAR(50) NOT NULL,
-    endereco 	VARCHAR(50),
-    cidade 		VARCHAR(50),
-    pais 		VARCHAR(25),
-    data_nasc 	DATETIME
-);
-    
-CREATE TABLE salario 
-(
-    matricula INT NOT NULL,
-    salario DECIMAL(10,2) NOT NULL,
-=======
--- 1. Criação de Tabelas
-CREATE TABLE funcionario (
-    matricula   INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    nome        VARCHAR(50) NOT NULL,
-    sobrenome   VARCHAR(50) NOT NULL,
-    endereco    VARCHAR(50),
-    cidade      VARCHAR(50),
-    pais        VARCHAR(25),
-    data_nasc   DATETIME
-);
-=======
--- 1. Criação de Tabelas
-CREATE TABLE funcionario (
-    matricula   INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    nome        VARCHAR(50) NOT NULL,
-    sobrenome   VARCHAR(50) NOT NULL,
-    endereco    VARCHAR(50),
-    cidade      VARCHAR(50),
-    pais        VARCHAR(25),
-    data_nasc   DATETIME
-);
->>>>>>> Stashed changes
+/*******************************************************************************
+  SCRIPT DE ESTUDO: OBJETOS AVANÇADOS, PROCEDURES E MANUTENÇÃO (DDL/DQL)
+  Objetivo: Praticar Relacionamentos, Índices, Views, Procedures e Tabelas Temporárias.
+*******************************************************************************/
 
-CREATE TABLE salario (
-    matricula   INT NOT NULL,
-    salario     DECIMAL(10,2) NOT NULL,
-<<<<<<< Updated upstream
->>>>>>> ca56ccc8eb09c3e9c9247331a67d597e260e971f
-=======
->>>>>>> Stashed changes
-    FOREIGN KEY (matricula) REFERENCES funcionarios(id)
+-- =============================================================================
+-- 1. ESTRUTURA DE TABELAS E RELACIONAMENTOS (FK)
+-- Descrição: Criação de tabelas com integridade referencial.
+-- =============================================================================
+
+CREATE TABLE IF NOT EXISTS funcionario 
+(
+    matricula   INT NOT NULL AUTO_INCREMENT, 
+    nome      VARCHAR(50) NOT NULL, 
+    sobrenome VARCHAR(50) NOT NULL, 
+    endereco  VARCHAR(50), 
+    cidade    VARCHAR(50), 
+    pais      VARCHAR(25), data_nasc DATETIME, 
+PRIMARY KEY (matricula)
 );
 
-CREATE TABLE audit_salario (
-<<<<<<< Updated upstream
-<<<<<<< HEAD
-    transacao INT NOT NULL AUTO_INCREMENT,
-    matricula INT NOT NULL,
-    data_trans DATETIME NOT NULL,
-    sal_antigo DECIMAL(10,2),
-    sal_novo DECIMAL(10,2),
-    usuario VARCHAR(20) NOT NULL,
-=======
-=======
->>>>>>> Stashed changes
-    transacao   INT NOT NULL AUTO_INCREMENT,
-    matricula   INT NOT NULL,
-    data_trans  DATETIME NOT NULL,
-    sal_antigo  DECIMAL(10,2),
-    sal_novo    DECIMAL(10,2),
-    usuario     VARCHAR(20) NOT NULL,
-<<<<<<< Updated upstream
->>>>>>> ca56ccc8eb09c3e9c9247331a67d597e260e971f
-=======
->>>>>>> Stashed changes
-    PRIMARY KEY (transacao),
+CREATE TABLE IF NOT EXISTS salario 
+(
+    matricula   INT NOT NULL, 
+    salario   DECIMAL(10, 2) NOT NULL, 
     FOREIGN KEY (matricula) REFERENCES funcionario(matricula)
 );
 
-<<<<<<< Updated upstream
-<<<<<<< HEAD
--- CREATE IDEX
-/*
-=======
--- 2. Índices e Alterações de Estrutura
->>>>>>> Stashed changes
-CREATE INDEX ix_func1 ON funcionario(data_nasc);
-CREATE INDEX ix_func2 ON funcionario(cidade, pais);
+CREATE TABLE IF NOT EXISTS audit_salario 
+(
+    transacao   INT NOT NULL AUTO_INCREMENT, 
+    matricula INT NOT NULL, 
+    data_trans DATETIME NOT NULL, 
+    sal_antigo DECIMAL(10, 2), 
+    sal_novo   DECIMAL(10, 2), usuario    VARCHAR(20) NOT NULL, 
+    PRIMARY KEY (transacao), 
+    FOREIGN KEY (matricula) REFERENCES funcionario(matricula)
+);
 
+
+-- =============================================================================
+-- 2. MANUTENÇÃO DE ESTRUTURA (ALTER & RENAME)
+-- Descrição: Modificações em colunas, tipos de dados e nomes de objetos.
+-- =============================================================================
+
+-- Adição e alteração de colunas
 ALTER TABLE funcionario ADD genero CHAR(1);
-ALTER TABLE funcionario CHANGE genero sexo CHAR(1);
-ALTER TABLE funcionario CHANGE sexo genero CHAR(1);
+ALTER TABLE funcionario CHANGE genero sexo CHAR(1);  -- Renomeia a coluna
+ALTER TABLE funcionario CHANGE sexo genero CHAR(1);  -- Retorna ao original
+ALTER TABLE funcionario MODIFY COLUMN endereco VARCHAR(30); -- Altera o tipo/tamanho
+ALTER TABLE funcionario DROP COLUMN genero;           -- Remove a coluna
 
-<<<<<<< Updated upstream
-ALTER TABLE funcionario CHANGE genero sexo char(1);
-=======
--- 2. Índices e Alterações de Estrutura
-CREATE INDEX ix_func1 ON funcionario(data_nasc);
-CREATE INDEX ix_func2 ON funcionario(cidade, pais);
-
-ALTER TABLE funcionario ADD genero CHAR(1);
-ALTER TABLE funcionario CHANGE genero sexo CHAR(1);
-ALTER TABLE funcionario CHANGE sexo genero CHAR(1);
-
-=======
->>>>>>> Stashed changes
+-- Renomear tabelas
 RENAME TABLE funcionario TO pessoa;
 RENAME TABLE pessoa TO funcionario;
 
-ALTER TABLE senso ADD id INT;
-ALTER TABLE senso MODIFY COLUMN id INT AUTO_INCREMENT PRIMARY KEY;
-ALTER TABLE funcionario MODIFY COLUMN endereco VARCHAR(30);
-ALTER TABLE funcionario DROP COLUMN genero;
+-- Alteração de Engine (Motor de Armazenamento)
+-- MyISAM é otimizado para leitura, enquanto InnoDB (padrão) suporta transações.
 ALTER TABLE senso ENGINE = MyISAM;
 
--- 3. Gerenciamento de Banco e Objetos
-CREATE DATABASE teste;
-DROP DATABASE teste;
-DROP TABLE salario;
 
--- 4. Views (Visões)
-CREATE VIEW v_funcionario AS 
-    SELECT * FROM funcionarios;
+-- =============================================================================
+-- 3. GERENCIAMENTO DE ÍNDICES (INDEX)
+-- Descrição: Melhora a performance de busca em colunas muito consultadas.
+-- =============================================================================
 
-ALTER VIEW v_funcionario AS 
-    SELECT id, nome FROM funcionarios;
+CREATE INDEX ix_func1 ON funcionario(data_nasc);
+CREATE INDEX ix_func2 ON funcionario(cidade, pais); -- Índice composto
 
-SELECT * FROM v_funcionario;
-DROP VIEW v_funcionario;
-
--- 5. Manipulação de Índices
+-- Remoção e recriação de índice
 DROP INDEX ix_func1 ON funcionario;
-CREATE INDEX ix_func1 ON funcionario (NOME);
+CREATE INDEX ix_func1 ON funcionario(nome);
 
--- 6. Stored Procedures
+
+-- =============================================================================
+-- 4. VISÕES (VIEWS)
+-- Descrição: Tabelas virtuais baseadas em uma consulta SELECT para segurança/atalho.
+-- =============================================================================
+
+CREATE OR REPLACE VIEW v_funcionario AS 
+    SELECT matricula, nome, sobrenome FROM funcionario;
+
+-- Consulta na View como se fosse uma tabela real
+SELECT * FROM v_funcionario;
+
+-- Remoção da View
+DROP VIEW IF EXISTS v_funcionario;
+
+
+-- =============================================================================
+-- 5. PROGRAMAÇÃO SQL: STORED PROCEDURES
+-- Descrição: Blocos de código armazenados para execução de lógica no servidor.
+-- =============================================================================
+
 DELIMITER $$
+
 CREATE PROCEDURE proc_quadrado (INOUT numero INT)
 BEGIN
+    -- Realiza o cálculo e armazena de volta na variável
     SET numero = numero * numero;
 END $$
+
 DELIMITER ;
 
+-- Execução da Procedure
 SET @valor = 5;
-CALL proc_quadrado (@valor);
-SELECT @valor;
+CALL proc_quadrado(@valor);
+SELECT @valor AS resultado_quadrado;
 
-DROP PROCEDURE proc_quadrado;
+DROP PROCEDURE IF EXISTS proc_quadrado;
 
--- 7. Tabelas Temporárias
+
+-- =============================================================================
+-- 6. TABELAS TEMPORÁRIAS
+-- Descrição: Tabelas que existem apenas durante a sessão atual do usuário.
+-- =============================================================================
+
 CREATE TEMPORARY TABLE tmp_funcionarios (
-    id      INT,
-    nome    VARCHAR(50),
-    salario DECIMAL(50),
-    setor   VARCHAR(30)
+    id      INT
+    , nome    VARCHAR(50)
+    , salario DECIMAL(10, 2)
+    , setor   VARCHAR(30)
 );
 
-INSERT INTO tmp_funcionarios 
-SELECT * FROM funcionario;
+-- Inserção massiva baseada em uma consulta
+INSERT INTO tmp_funcionarios (id, nome)
+SELECT matricula, nome FROM funcionario;
 
-<<<<<<< Updated upstream
 SELECT * FROM tmp_funcionarios;
->>>>>>> ca56ccc8eb09c3e9c9247331a67d597e260e971f
-=======
-SELECT * FROM tmp_funcionarios;
->>>>>>> Stashed changes
+
+
+-- =============================================================================
+-- 7. GERENCIAMENTO DE BANCO DE DADOS
+-- =============================================================================
+
+CREATE DATABASE IF NOT EXISTS teste;
+DROP DATABASE IF EXISTS teste;
+DROP TABLE IF EXISTS salario;
