@@ -1,0 +1,76 @@
+/*******************************************************************************
+  SCRIPT DE ESTUDO: CONVERSÃO DE DADOS (CAST & CONVERT) E ENCODING
+  PADRONIZAÇÃO: VÍRGULAS À DIREITA E TRATAMENTO DE BINÁRIOS E TIPOS.
+*******************************************************************************/
+
+-- =============================================================================
+-- 1. TRATAMENTO DE STRINGS BINÁRIAS E ENCODING
+-- DESCRIÇÃO: CONVERTE STRINGS BINÁRIAS PARA DIFERENTES CHARSET PARA PERMITIR
+-- O FUNCIONAMENTO DE FUNÇÕES COMO LOWER() EM CARACTERES ACENTUADOS.
+-- =============================================================================
+
+SET @PALAVRA := BINARY 'SAO PAULO';
+
+-- O RETORNO 1 PODE NÃO ALTERAR O BINÁRIO DIRETAMENTE SEM A CONVERSÃO DE CHARSET
+SELECT LOWER(@PALAVRA) AS RETORNO1, 
+       LOWER(CONVERT(@PALAVRA USING LATIN1)) AS RETORNO2;
+
+SET @PALAVRA_ACENTO := BINARY 'SÃO PAULO';
+
+-- O RESULTADO VARIA CONFORME O CHARSET (UTF8 SUPORTA ACENTOS, ASCII PODE GERAR ERRO)
+SELECT LOWER(@PALAVRA_ACENTO) AS RETORNO1,
+       LOWER(CONVERT(@PALAVRA_ACENTO USING UTF8)) AS RETORNO2,
+       LOWER(CONVERT(@PALAVRA_ACENTO USING ASCII)) AS RETORNO3,
+       CONVERT(@PALAVRA_ACENTO USING UTF8) AS RETORNO4;
+
+
+-- =============================================================================
+-- 2. USO DO CAST (CONVERSÃO DE TIPOS DE DATA E HORA)
+-- =============================================================================
+
+-- GERA O RETORNO DA DATA ATUAL FRAGMENTADA EM DIFERENTES FORMATOS
+SELECT NOW() AS AGORA;
+SELECT CAST(NOW() AS DATE) AS APENAS_DATA;
+SELECT CAST(NOW() AS TIME) AS APENAS_HORA;
+SELECT CAST(NOW() AS CHAR) AS TEXTO_COMPLETO;
+SELECT CAST(NOW() AS CHAR(7)) AS ANO_MES;
+
+
+-- =============================================================================
+-- 3. USO DO CONVERT (SINTAXE ALTERNATIVA PARA TIPOS)
+-- =============================================================================
+
+-- O RESULTADO É IDÊNTICO AO CAST, MAS UTILIZA UMA SINTAXE DE FUNÇÃO PADRÃO
+SELECT CONVERT(NOW(), DATE) AS DATA_CONVERT;
+SELECT CONVERT(NOW(), TIME) AS HORA_CONVERT;
+SELECT CONVERT(NOW(), CHAR) AS CHAR_CONVERT;
+SELECT CONVERT(NOW(), CHAR(7)) AS CHAR_7_CONVERT;
+
+
+-- =============================================================================
+-- 4. CONVERSÃO PARA BINÁRIO E DECIMAL
+-- =============================================================================
+
+-- RETORNA A EXPRESSÃO ORIGINAL TRANSFORMADA EM DADOS BINÁRIOS
+SELECT 'MYSQL' AS EXPRESSAO, 
+       CAST('MYSQL' AS BINARY) AS CAST_BIN,
+       CONVERT('MYSQL' USING BINARY) AS CONVERT_BIN;
+
+-- REALIZA O RETORNO DE NÚMEROS COM PRECISÃO DECIMAL ESPECÍFICA
+SET @EXPR1 := 1;
+
+SELECT @EXPR1 AS VALOR,
+      CAST(@EXPR1 AS DECIMAL(10,2)) AS CAST_DECIMAL,
+      CONVERT(@EXPR1, DECIMAL(10,3)) AS CONVERT_DECIMAL,
+      CAST(CONVERT(@EXPR1, DECIMAL(10,3)) AS SIGNED INTEGER) AS VOLTA_INTEIRO;
+
+
+-- =============================================================================
+-- 5. OPERAÇÕES ARITMÉTICAS COM CONVERSÃO
+-- =============================================================================
+
+-- GARANTE O RESULTADO DA SOMA AO CONVERTER A STRING/VALOR PARA DECIMAL
+SELECT (CAST(10 AS DECIMAL)) + 10 AS RESULTADO;
+
+-- CORREÇÃO DE SINTAXE: FECHAMENTO DE PARÊNTESE PARA O RESULTADO FINAL
+SELECT CONVERT(10, DECIMAL(10,2)) + 10 AS RESULTADO;

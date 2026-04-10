@@ -1,0 +1,70 @@
+/*******************************************************************************
+  SCRIPT DE ESTUDO: STORED PROCEDURES (PARÂMETROS OUT)
+  PADRONIZAÇÃO: VÍRGULAS À DIREITA E CAPTURA DE ESTADOS DE DADOS.
+*******************************************************************************/
+
+-- =============================================================================
+-- 1. PROCEDURE COM UM PARÂMETRO DE SAÍDA (OUT)
+-- CAPTURA O VALOR ORIGINAL DO CUSTO ANTES DE REALIZAR A ATUALIZAÇÃO.
+-- =============================================================================
+
+DELIMITER //
+
+CREATE PROCEDURE PROC_AJUSTA_CUSTO_2(
+      IN  P_COD_MAT INT,
+      IN  TAXA      DECIMAL(10,2),
+      OUT ANTES     DECIMAL(10,2)
+)
+BEGIN
+      -- ARMAZENA O VALOR ATUAL NA VARIÁVEL DE SAÍDA PARA O RETORNO
+      SELECT CUSTO INTO ANTES
+      FROM MATERIAL 
+      WHERE COD_MAT = P_COD_MAT;
+      
+      -- EXECUTA A ATUALIZAÇÃO PARA GERAR O NOVO RESULTADO
+      UPDATE MATERIAL SET CUSTO = CUSTO + CUSTO * TAXA / 100
+      WHERE COD_MAT = P_COD_MAT;
+END //
+
+DELIMITER ;
+
+-- EXECUÇÃO: O VALOR ORIGINAL SERÁ GRAVADO NA VARIÁVEL @ANTES
+CALL PROC_AJUSTA_CUSTO_2(2, 7, @ANTES);
+
+-- EXIBE O RESULTADO DO CUSTO ANTES DO REAJUSTE
+SELECT @ANTES;
+
+
+-- =============================================================================
+-- 2. PROCEDURE COM MÚLTIPLOS PARÂMETROS DE SAÍDA (OUT)
+-- CAPTURA TANTO O VALOR ANTIGO QUANTO O NOVO CÁLCULO NO MESMO RETORNO.
+-- =============================================================================
+
+DELIMITER //
+
+CREATE PROCEDURE PROC_AJUSTA_CUSTO_3(
+      IN  P_COD_MAT INT,
+      IN  TAXA      DECIMAL(10,2),
+      OUT ANTES     DECIMAL(10,2),
+      OUT DEPOIS    DECIMAL(10,2)
+)
+BEGIN
+      -- CAPTURA OS DOIS ESTADOS DO DADO ANTES DA PERSISTÊNCIA
+      SELECT CUSTO, 
+            CUSTO + ((CUSTO * TAXA) / 100) INTO ANTES, DEPOIS
+      FROM MATERIAL 
+      WHERE COD_MAT = P_COD_MAT;
+
+      -- APLICA A ALTERAÇÃO DEFINITIVA NO BANCO
+      UPDATE MATERIAL SET CUSTO = CUSTO + CUSTO * TAXA / 100
+      WHERE COD_MAT = P_COD_MAT;
+END //
+
+DELIMITER ;
+
+-- EXECUÇÃO: AMBAS AS VARIÁVEIS DE SESSÃO SERÃO ALIMENTADAS PELO RESULTADO
+CALL PROC_AJUSTA_CUSTO_3(2, 7, @ANTES, @DEPOIS);
+
+-- EXIBE O RESULTADO COMPARATIVO (ANTES VS DEPOIS)
+SELECT @ANTES AS ANTES, 
+       @DEPOIS AS DEPOIS;
