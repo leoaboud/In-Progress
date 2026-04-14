@@ -1,0 +1,108 @@
+/*******************************************************************************
+  PROJETO: MINI E-COMMERCE (MINI_EC)
+  ESTRUTURA: MODELAGEM RELACIONAL E INTEGRIDADE DE DADOS
+  PADRONIZAÇÃO: VÍRGULAS À DIREITA E CONSTRAINTS NOMEADAS.
+*******************************************************************************/
+
+CREATE DATABASE IF NOT EXISTS MINI_EC;
+USE MINI_EC;
+
+-- =============================================================================
+-- 1. GESTÃO DE ACESSO (USUÁRIOS DO SISTEMA)
+-- =============================================================================
+
+CREATE TABLE USUARIOS 
+(
+      ID_USER       INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+      NOME_USER     VARCHAR(50) NOT NULL,
+      EMAIL_USER    VARCHAR(60) NOT NULL,
+      SENHA         VARCHAR(32) NOT NULL, -- ARMAZENA HASH MD5/SHA
+      DATA_CADASTRO DATETIME NOT NULL,
+      STATUS        ENUM('A', 'B') DEFAULT 'A'
+);
+
+CREATE UNIQUE INDEX IX_USR_1 ON USUARIOS(EMAIL_USER);
+
+
+-- =============================================================================
+-- 2. LOCALIZAÇÃO E GEOGRAFIA
+-- =============================================================================
+
+-- Nota: Corrigido o nome para Unidade Federal para bater com a FK de Cidades
+CREATE TABLE UNIDADE_FEDERAL (
+      COD_UF  TINYINT NOT NULL PRIMARY KEY,
+      UF      CHAR(2) NOT NULL,
+      NOME_UF VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE CIDADES (
+      ID_CIDADE   INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+      NOME_CIDADE VARCHAR(70) NOT NULL,
+      COD_MUN     VARCHAR(7) NOT NULL,
+      COD_UF      TINYINT NOT NULL,
+      CONSTRAINT FK_CID_UF FOREIGN KEY (COD_UF) REFERENCES UNIDADE_FEDERAL(COD_UF)
+);
+
+
+-- =============================================================================
+-- 3. CATÁLOGO DE PRODUTOS E FABRICANTES
+-- =============================================================================
+
+CREATE TABLE CATEGORIAS (
+      ID_CATEGORIA   INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+      NOME_CATEGORIA VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE FABRICANTES (
+      ID_FABRICANTE   INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+      NOME_FABRICANTE VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE PRODUTOS (
+      ID_PRODUTO    INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+      DESCRICAO     VARCHAR(100) NOT NULL,
+      ID_CATEGORIA  INT NOT NULL,
+      ID_FABRICANTE INT NOT NULL,
+      PRECO_CUSTO   DECIMAL(10,2),
+      PRECO_VENDA   DECIMAL(10,2),
+      CONSTRAINT FK_PROD_CAT FOREIGN KEY (ID_CATEGORIA) REFERENCES CATEGORIAS(ID_CATEGORIA),
+      CONSTRAINT FK_PROD_FAB FOREIGN KEY (ID_FABRICANTE) REFERENCES FABRICANTES(ID_FABRICANTE)
+);
+
+CREATE TABLE PRODUTO_CARACTER (
+      ID_PRODUTO     INT NOT NULL,
+      CARACTERISTICA VARCHAR(50) NOT NULL,
+      VALOR          VARCHAR(50) NOT NULL,
+      CONSTRAINT FK_CARAC_PROD FOREIGN KEY (ID_PRODUTO) REFERENCES PRODUTOS(ID_PRODUTO)
+);
+
+
+-- =============================================================================
+-- 4. CLIENTES E ENDEREÇOS
+-- =============================================================================
+
+CREATE TABLE CLIENTES (
+      ID_CLIENTE    INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+      NOME          VARCHAR(32) NOT NULL,
+      SOBRENOME     VARCHAR(32) NOT NULL,
+      EMAIL         VARCHAR(60) NOT NULL,
+      SENHA         VARCHAR(32) NOT NULL,
+      DATA_NASC     DATE NOT NULL,
+      DATA_CADASTRO DATETIME NOT NULL,
+      ULT_ACESSO    DATETIME,
+      ULT_COMPRA    DATETIME,
+      SITUACAO      ENUM('A', 'B') NOT NULL DEFAULT 'A'
+);
+
+CREATE TABLE CLIENTE_ENDERECO (
+      ID_ENDERECO INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+      ID_CLIENTE  INT NOT NULL,
+      TIPO        ENUM('P', 'A') NOT NULL, -- P: Principal, A: Alternativo
+      ENDERECO    VARCHAR(60) NOT NULL,
+      NUMERO      VARCHAR(10) NOT NULL,
+      BAIRRO      VARCHAR(30) NOT NULL,
+      CEP         VARCHAR(8) NOT NULL,
+      ID_CIDADE   INT NOT NULL,
+      CONSTRAINT FK_END_CLI FOREIGN KEY (ID_CLIENTE) REFERENCES CLIENTES(ID_CLIENTE),
+      CONSTRAINT FK_END_CID FOREIGN KEY (ID_CIDADE) REFERENCES CIDADES(ID_CIDADE)
+);
