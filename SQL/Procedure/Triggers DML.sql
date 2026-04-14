@@ -1,0 +1,93 @@
+/*******************************************************************************
+  SCRIPT DE ESTUDO: TRIGGERS PARA CONTROLE DE ESTOQUE (ENTRADA/SAÍDA)
+  PADRONIZAÇÃO: VÍRGULAS À DIREITA E INTEGRIDADE AUTOMÁTICA.
+*******************************************************************************/
+
+-- =============================================================================
+-- 1. ESTRUTURA E CARGA DE DADOS
+-- =============================================================================
+
+CREATE TABLE CAD_MATERIAL 
+(
+      COD_MAT  INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+      NOME_MAT VARCHAR(50) UNIQUE,
+      SALDO    INT NOT NULL DEFAULT 0
+);
+
+INSERT INTO CAD_MATERIAL (NOME_MAT, SALDO) VALUES
+      ('GAME', 10), 
+      ('SMART TV', 5), 
+      ('SMARTPHONE', 15), 
+      ('NOTEBOOK', 32), 
+      ('TABLET', 50);
+
+CREATE TABLE NF_ITENS 
+(
+      VENDA   INT,
+      COD_MAT INT,
+      QTD     INT
+);
+
+
+-- =============================================================================
+-- 2. GATILHOS (TRIGGERS) DE SINCRONIZAÇÃO
+-- =============================================================================
+
+DELIMITER $
+
+-- GATILHO PARA BAIXA DE ESTOQUE NO INSERT
+CREATE TRIGGER TG_NF_ITENS_INSERT AFTER INSERT
+ON NF_ITENS
+FOR EACH ROW
+BEGIN
+      UPDATE CAD_MATERIAL SET SALDO = SALDO - NEW.QTD
+      WHERE COD_MAT = NEW.COD_MAT;
+END $
+
+-- GATILHO PARA ESTORNO DE ESTOQUE NO DELETE
+CREATE TRIGGER TG_NF_ITENS_DELETE AFTER DELETE
+ON NF_ITENS
+FOR EACH ROW
+BEGIN
+      UPDATE CAD_MATERIAL SET SALDO = SALDO + OLD.QTD
+      WHERE COD_MAT = OLD.COD_MAT;
+END $
+
+-- GATILHO PARA AJUSTE DE ESTOQUE NO UPDATE
+CREATE TRIGGER TG_NF_ITENS_UPDATE AFTER UPDATE
+ON NF_ITENS
+FOR EACH ROW
+BEGIN
+      -- A LÓGICA CORRETA: DEVOLVE A QTD ANTIGA E SUBTRAI A NOVA
+      UPDATE CAD_MATERIAL SET SALDO = SALDO + OLD.QTD - NEW.QTD
+      WHERE COD_MAT = OLD.COD_MAT;
+END $
+
+DELIMITER ;
+
+
+-- =============================================================================
+-- 3. TESTES DE MOVIMENTAÇÃO E RETORNO
+-- =============================================================================
+
+-- VERIFICAÇÃO ANTES DA VENDA
+SELECT * FROM CAD_MATERIAL;
+
+-- REALIZA VENDAS (BAIXA AUTOMÁTICA VIA TRIGGER INSERT)
+INSERT INTO NF_ITENS (VENDA, COD_MAT, QTD) VALUES 
+      (1, 1, 3), 
+      (1, 2, 3), 
+      (1, 3, 5);
+
+-- ALTERA QUANTIDADE (AJUSTE AUTOMÁTICO VIA TRIGGER UPDATE)
+UPDATE NF_ITENS SET QTD = 4
+WHERE VENDA = 1 AND COD_MAT = 1;
+
+-- CANCELA ITEM (ESTORNO AUTOMÁTICO VIA TRIGGER DELETE)
+DELETE FROM NF_ITENS
+WHERE VENDA = 1 AND COD_MAT = 1;
+
+-- CONFERÊNCIA FINAL DOS RESULTADOS
+SELECT * FROM NF_ITENS;
+SELECT * FROM CAD_MATERIAL;
+SHOW TRIGGERS;
