@@ -12,14 +12,35 @@ As each language is completed, this repository will be expanded to cover the nex
 
 ---
 
-## 🐍 Python 3
-
+## 🗄️ MySQL
 **Platform:** Udemy  
-**Instructor:** *Luiz Otávio Miranda*  
-**Status:** 🟡 In Progress
+**Instructor:** *André Rosa* **Status:** 🟢 Completed
 
 ### Topics Covered
+- **Database Design:** Relational modeling, normalization, and integrity constraints.
+- **SQL Language:** Advanced DDL (Structure), DML (Data), DCL (Security), and TCL (Transactions).
+- **Advanced Logic:** Complex Joins, Subqueries, and Union operations.
+- **Programmability:** Creation of Stored Procedures, Functions, and Triggers for business logic.
+- **Automation:** Implementation of Scheduled Events for database maintenance and auto-expiration tasks.
+- **Administration:** Backup/Restore, User management, Variables tuning, and Performance monitoring.
+- **Real-World Project:** Complete Mini E-commerce system with cart logic, inventory reservation, and financial reporting views.
 
+### Structure
+    mysql/
+    ├── Datacenter Admin/       
+    ├── Database/                
+    ├── E-commerce Project/      
+    ├── SQL Language/
+    │   └── Procedures/        
+    └── MySQL via CMD/           
+
+---
+
+## 🐍 Python 3
+**Platform:** Udemy  
+**Instructor:** *Luiz Otávio Miranda* **Status:** 🟡 In Progress
+
+### Topics Covered
 - Core syntax, data types, and control flow
 - Functions, modules, and standard library
 - Object-Oriented Programming (OOP) — Pythonic style
@@ -32,29 +53,13 @@ As each language is completed, this repository will be expanded to cover the nex
 - GUI development with PySide6
 - Deploy on Linux/GCP with SSH
 
-### Structure
-
-    python/
-    ├── basics/
-    ├── intermediate/
-    ├── oop/
-    ├── design-patterns/
-    ├── pyside6/
-    ├── databases/
-    ├── django/
-    ├── projects/
-    └── extras/
-
 ---
 
 ## ☕ Java
-
 **Platform:** Udemy  
-**Instructor:** *Cleison Santos*  
-**Status:** 🟡 In Progress
+**Instructor:** *Cleison Santos* **Status:** 🟡 In Progress
 
 ### Topics Covered
-
 - Java environment setup and JVM fundamentals
 - Variables, operators, and control structures
 - Arrays, collections, and data structures
@@ -64,73 +69,27 @@ As each language is completed, this repository will be expanded to cover the nex
 - Multithreading and parallel programming
 - JDBC and database integration (MySQL)
 - GUI projects with JavaFX/Swing
-- Real-world project development
-
-### Structure
-
-    java/
-    ├── fundamentals/
-    ├── challenge/
-    ├── oop/
-    ├── collections/
-    ├── exceptions/
-    ├── multithreading/
-    ├── database/
-    └── projects/
-
----
-
-## 🗄️ MySQL
-
-**Platform:** Udemy  
-**Instructor:** *André Rosa*  
-**Status:** 🟡 In Progress
-
-### Topics Covered
-
-- Theoretical Concepts and Database Fundamentals
-- Data Types
-- SQL Language — Practical Lessons (DDL, DML, DCL, TCL)
-- Union and Subqueries
-- Joins
-- Standard Functions
-- Functions, Procedures, and Triggers
-- Backup, Restore, and MySQL Administration
-- Mini E-commerce Database Project
-- MySQL Server and Workbench Installation (Community Edition)
-
-### Structure
-
-    mysql/
-    ├── sql-language/
-    ├── union-subqueries/
-    ├── joins/
-    ├── functions/
-    ├── procedures-triggers/
-    ├── administration/
-    ├── projects/
-    └── extras/
 
 ---
 
 ## 🗺️ Roadmap
 
 | Language / Technology | Status         |
-|---|---|
-| 🐍 Python 3       | 🟡 In Progress |
-| ☕ Java            | 🟡 In Progress |
-| 🗄️ MySQL           | 🟡 In Progress |
-| 🔜 Next Language   | ⬜ Planned     |
+| :--- | :--- |
+| 🗄️ MySQL            | 🟢 Completed   |
+| 🐍 Python 3         | 🟡 In Progress |
+| ☕ Java              | 🟡 In Progress |
+| 🔜 Next Language    | ⬜ Planned     |
 
-> This section will be updated as each language is completed and a new study cycle begins.
+> This section is updated as each language is completed and a new study cycle begins.
 
 ---
 
 ## 📂 Repository Structure
 
     /
-    ├── java/
-    ├── python/
-    ├── mysql/
-    ├── resources/
+    ├── mysql/      # Completed: Full E-commerce DB System
+    ├── python/     # In Progress: Core and Backend
+    ├── java/       # In Progress: OOP and Systems
+    ├── resources/  # Study materials and docs
     └── README.md
