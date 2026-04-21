@@ -26,3 +26,15 @@ soma(x=1, y=2, z=3)
 # Exemplo prático de argumento nomeado em funções integradas:
 # O 'sep' é um argumento nomeado da função print()
 print(1, 2, 3, sep='-')
+
+def soma(x, y, z= None):
+    if z is not None:
+        print(f'{x=} {y=} {z=}', x + y + z)
+    else:
+        print(f'{x=} {y=}', x + y)
+
+soma(1, 2)
+soma(3, 4)
+soma(100, 200)
+soma(7, 9 , 0)
+soma(z=0, x=7, y=9)
