@@ -17,7 +17,7 @@ if nome and idade != "":
 
         print('Seu nome não contém espaços')
 
-    print(f'Seu nome contém {len(nome)}')
+    print(f'Seu nome contém {len(nome)} letras')
 
     print(f'A primeira letra do seu nome é {nome[0]}')
 

@@ -1,4 +1,4 @@
-package Challenge.while;
+package Challenge.While;
 
 import java.util.Scanner;
 
