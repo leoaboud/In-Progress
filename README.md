@@ -5,7 +5,6 @@
   <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
   <img src="https://img.shields.io/badge/Go-00ADD8?style=for-the-badge&logo=go&logoColor=white" />
   <img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" />
-  <img src="https://img.shields.io/badge/Rust-000000?style=for-the-badge&logo=rust&logoColor=white" />
 </div>
 
 > A personal repository dedicated to documenting my progress as a developer.  
@@ -86,20 +85,6 @@ As each language is completed, this repository will be expanded to cover the nex
 
 ---
 
-## 🦀 [Rust](https://www.udemy.com/course/curso-programacao-rust-completo-do-zero-ao-pleno/)
-**Platform:** Udemy  
-**Instructor:** *Code Puzzle* **Status:** 🟡 In Progress
-
-### Topics Covered
-- **The Borrow Checker:** Mastering Ownership, Borrowing, and Lifetimes.
-- **Memory Safety:** Learning how Rust prevents data races without a Garbage Collector.
-- **Pattern Matching:** Advanced control flow with `Match` and `Enums`.
-- **Error Handling:** Robust coding using `Result` and `Option`.
-- **Ecosystem:** Using Cargo for dependency management and testing.
-- **Low-Level Control:** Pointers, Traits, and Generics.
-
----
-
 ## 🗺️ Roadmap
 
 | Language / Technology | Status          |
@@ -108,7 +93,6 @@ As each language is completed, this repository will be expanded to cover the nex
 | 🐍 Python 3          | 🟡 In Progress |
 | ☕ Java              | 🟡 In Progress |
 | 🐹 Go (Golang)       | 🟡 In Progress |
-| 🦀 Rust              | 🟡 In Progress |
 
 ---
 
@@ -120,7 +104,6 @@ As each language is completed, this repository will be expanded to cover the nex
     ├── mysql/      # Completed: Full E-commerce DB System
     ├── python/     # In Progress: Core and Backend
     ├── resources/  # Study materials and docs
-    ├── rust/       # In Progress: Memory Safety and CLI
     └── README.md
 
 > This section is updated as each language is completed and a new study cycle begins.
