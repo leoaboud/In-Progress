@@ -22,7 +22,8 @@ As each language is completed, this repository will be expanded to cover the nex
 
 ## 🗄️ [MySQL](https://www.udemy.com/course/mysql-developer-expert/)
 **Platform:** Udemy  
-**Instructor:** *André Rosa* **Status:** 🟢 Completed
+**Instructor:** *André Rosa*
+**Status:** 🟢 Completed
 
 ### Topics Covered
 - **Database Design:** Relational modeling, normalization, and integrity constraints.
@@ -37,7 +38,8 @@ As each language is completed, this repository will be expanded to cover the nex
 
 ## 🐍 [Python 3](https://www.udemy.com/course/python-3-do-zero-ao-avancado/)
 **Platform:** Udemy  
-**Instructor:** *Luiz Otávio Miranda* **Status:** 🟡 In Progress
+**Instructor:** Luiz Otávio Miranda  
+**Status:** 🟡 In Progress
 
 ### Topics Covered
 - Core syntax, data types, and control flow
@@ -56,7 +58,8 @@ As each language is completed, this repository will be expanded to cover the nex
 
 ## ☕ [Java](https://www.udemy.com/course/curso-de-java-do-basico-ao-avancado-projetos/)
 **Platform:** Udemy  
-**Instructor:** *Cleison Santos* **Status:** 🟡 In Progress
+**Instructor:** *Cleison Santos*   
+**Status:** 🟡 In Progress
 
 ### Topics Covered
 - Java environment setup and JVM fundamentals
@@ -73,7 +76,8 @@ As each language is completed, this repository will be expanded to cover the nex
 
 ## 🐹 [Go (Golang)](https://www.udemy.com/course/aprenda-golang-do-zero-desenvolva-uma-aplicacao-completa/)
 **Platform:** Udemy  
-**Instructor:** *Otávio Augusto Gallego* **Status:** 🟡 In Progress
+**Instructor:** *Otávio Augusto Gallego*   
+**Status:** 🟡 In Progress
 
 ### Topics Covered
 - **Fundamentals:** Variables, types, and the unique Go workspace structure.
