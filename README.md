@@ -1,16 +1,10 @@
 # 📚 Learning Journey
 
 <div align="center">
-<<<<<<< HEAD
-  <img src="https://img.shields.io/badge/Python%20-3e6b48?style=for-the-badge&logo=python&logoColor=white" />
-  <img src="https://img.shields.io/badge/Java-a63d33?style=for-the-badge&logo=openjdk&logoColor=white" />
-  <img src="https://img.shields.io/badge/MySQL-335c7d?style=for-the-badge&logo=mysql&logoColor=white" />
-=======
   <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" />
   <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
   <img src="https://img.shields.io/badge/Go-00ADD8?style=for-the-badge&logo=go&logoColor=white" />
   <img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" />
->>>>>>> 35d8bc2adc6a8969b1fee9f1cdfabbe0b2012b59
 </div>
 
 > A personal repository dedicated to documenting my progress as a developer.  
