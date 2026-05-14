@@ -1,9 +1,16 @@
 # 📚 Learning Journey
 
 <div align="center">
+<<<<<<< HEAD
   <img src="https://img.shields.io/badge/Python%20-3e6b48?style=for-the-badge&logo=python&logoColor=white" />
   <img src="https://img.shields.io/badge/Java-a63d33?style=for-the-badge&logo=openjdk&logoColor=white" />
   <img src="https://img.shields.io/badge/MySQL-335c7d?style=for-the-badge&logo=mysql&logoColor=white" />
+=======
+  <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" />
+  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
+  <img src="https://img.shields.io/badge/Go-00ADD8?style=for-the-badge&logo=go&logoColor=white" />
+  <img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" />
+>>>>>>> 35d8bc2adc6a8969b1fee9f1cdfabbe0b2012b59
 </div>
 
 > A personal repository dedicated to documenting my progress as a developer.  
@@ -19,9 +26,10 @@ As each language is completed, this repository will be expanded to cover the nex
 
 ---
 
-## 🗄️ MySQL
+## 🗄️ [MySQL](https://www.udemy.com/course/mysql-developer-expert/)
 **Platform:** Udemy  
-**Instructor:** *André Rosa* **Status:** 🟢 Completed
+**Instructor:** *André Rosa*
+**Status:** 🟢 Completed
 
 ### Topics Covered
 - **Database Design:** Relational modeling, normalization, and integrity constraints.
@@ -30,22 +38,14 @@ As each language is completed, this repository will be expanded to cover the nex
 - **Programmability:** Creation of Stored Procedures, Functions, and Triggers for business logic.
 - **Automation:** Implementation of Scheduled Events for database maintenance and auto-expiration tasks.
 - **Administration:** Backup/Restore, User management, Variables tuning, and Performance monitoring.
-- **Real-World Project:** Complete Mini E-commerce system with cart logic, inventory reservation, and financial reporting views.
-
-### Structure
-    mysql/
-    ├── Datacenter Admin/       
-    ├── Database/                
-    ├── E-commerce Project/      
-    ├── SQL Language/
-    │   └── Procedures/        
-    └── MySQL via CMD/           
+- **Real-World Project:** Complete Mini E-commerce system with cart logic, inventory reservation, and financial reporting views.        
 
 ---
 
-## 🐍 Python 3
+## 🐍 [Python 3](https://www.udemy.com/course/python-3-do-zero-ao-avancado/)
 **Platform:** Udemy  
-**Instructor:** *Luiz Otávio Miranda* **Status:** 🟡 In Progress
+**Instructor:** Luiz Otávio Miranda  
+**Status:** 🟡 In Progress
 
 ### Topics Covered
 - Core syntax, data types, and control flow
@@ -62,9 +62,10 @@ As each language is completed, this repository will be expanded to cover the nex
 
 ---
 
-## ☕ Java
+## ☕ [Java](https://www.udemy.com/course/curso-de-java-do-basico-ao-avancado-projetos/)
 **Platform:** Udemy  
-**Instructor:** *Cleison Santos* **Status:** 🟡 In Progress
+**Instructor:** *Cleison Santos*   
+**Status:** 🟡 In Progress
 
 ### Topics Covered
 - Java environment setup and JVM fundamentals
@@ -79,24 +80,40 @@ As each language is completed, this repository will be expanded to cover the nex
 
 ---
 
+## 🐹 [Go (Golang)](https://www.udemy.com/course/aprenda-golang-do-zero-desenvolva-uma-aplicacao-completa/)
+**Platform:** Udemy  
+**Instructor:** *Otávio Augusto Gallego*   
+**Status:** 🟡 In Progress
+
+### Topics Covered
+- **Fundamentals:** Variables, types, and the unique Go workspace structure.
+- **Packages & Modules:** Organizing code with Go Modules and managing visibility.
+- **Concurrency:** Mastery of Goroutines and Channels for high-performance apps.
+- **Data Handling:** Slices, Maps, Structs, and JSON manipulation.
+- **Web Development:** Creating REST APIs and integrating with Databases.
+- **Real-World Project:** Developing a full application from scratch to production.
+
+---
+
 ## 🗺️ Roadmap
 
-| Language / Technology | Status         |
+| Language / Technology | Status          |
 | :--- | :--- |
-| 🗄️ MySQL            | 🟢 Completed   |
-| 🐍 Python 3         | 🟡 In Progress |
+| 🗄️ MySQL             | 🟢 Completed   |
+| 🐍 Python 3          | 🟡 In Progress |
 | ☕ Java              | 🟡 In Progress |
-| 🔜 Next Language    | ⬜ Planned     |
-
-> This section is updated as each language is completed and a new study cycle begins.
+| 🐹 Go (Golang)       | 🟡 In Progress |
 
 ---
 
 ## 📂 Repository Structure
 
     /
+    ├── go/         # In Progress: Modules and Concurrency
+    ├── java/       # In Progress: OOP and Systems
     ├── mysql/      # Completed: Full E-commerce DB System
     ├── python/     # In Progress: Core and Backend
-    ├── java/       # In Progress: OOP and Systems
     ├── resources/  # Study materials and docs
     └── README.md
+
+> This section is updated as each language is completed and a new study cycle begins.
