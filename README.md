@@ -1,4 +1,11 @@
 # 📚 Learning Journey
+
+<div align="center">
+  <img src="https://img.shields.io/badge/Python%20-3e6b48?style=for-the-badge&logo=python&logoColor=white" />
+  <img src="https://img.shields.io/badge/Java-a63d33?style=for-the-badge&logo=openjdk&logoColor=white" />
+  <img src="https://img.shields.io/badge/MySQL-335c7d?style=for-the-badge&logo=mysql&logoColor=white" />
+</div>
+
 > A personal repository dedicated to documenting my progress as a developer.  
 > Every commit is a step forward. Every branch is a new concept mastered.
 
