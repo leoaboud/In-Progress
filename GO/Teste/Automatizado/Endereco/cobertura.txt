@@ -1,0 +1,7 @@
+mode: set
+funcao/Endereco/enderecos.go:20.46,27.39 5 1
+funcao/Endereco/enderecos.go:27.39,28.36 1 1
+funcao/Endereco/enderecos.go:28.36,30.18 2 1
+funcao/Endereco/enderecos.go:34.5,34.23 1 1
+funcao/Endereco/enderecos.go:34.23,36.6 1 1
+funcao/Endereco/enderecos.go:37.5,37.28 1 0
